@@ -6,6 +6,20 @@ import './App.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const fetchWithRetry = async (url, retries = 3, delay = 3000) => {
+  try {
+    const res = await axios.get(url);
+    return res;
+  } catch (err) {
+    if (retries > 0) {
+      console.log("Retrying...", retries);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return fetchWithRetry(url, retries - 1, delay);
+    }
+    throw err;
+  }
+};
+
 function App() {
   const [issues, setIssues] = useState([]);
   const [stats, setStats] = useState(null);
@@ -21,28 +35,47 @@ function App() {
       .catch(err => console.error(err));
   }, []);
 
-  useEffect(() => {
-    const fetchIssues = async () => {
+useEffect(() => {
+  const loadStats = async () => {
+    try {
       setLoading(true);
-      try {
-        let url = 'https://issue-difficulty-classifier.onrender.com/api/issues/?';
-        if (search) url += `search=${search}&`;
-        if (difficulty) url += `difficulty=${difficulty}`;
-
-        const response = await axios.get(url);
-        setIssues(response.data);
-      } catch (error) {
-        console.error("Error fetching issues:", error);
-      }
+      const res = await fetchWithRetry(
+        'https://issue-difficulty-classifier.onrender.com/api/stats/'
+      );
+      setStats(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
       setLoading(false);
-    };
+    }
+  };
 
-    const delayDebounceFn = setTimeout(() => {
-      fetchIssues();
-    }, 300);
+  loadStats();
+}, []);
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [search, difficulty]);
+useEffect(() => {
+  const fetchIssues = async () => {
+    setLoading(true);
+    try {
+      let url = 'https://issue-difficulty-classifier.onrender.com/api/issues/?';
+      if (search) url += `search=${search}&`;
+      if (difficulty) url += `difficulty=${difficulty}`;
+
+      const response = await fetchWithRetry(url);
+      setIssues(response.data);
+    } catch (error) {
+      console.error("Error fetching issues:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const delayDebounceFn = setTimeout(() => {
+    fetchIssues();
+  }, 300);
+
+  return () => clearTimeout(delayDebounceFn);
+}, [search, difficulty]);
 
   // Skill Matcher Logic
   const userSkills = skills.toLowerCase().split(',').map(s => s.trim()).filter(s => s);
@@ -161,7 +194,12 @@ function App() {
 
       {/* Issues Grid */}
      {loading ? (
-        <div className="loading">Loading issues...</div>
+        <div className="loading" style={{ textAlign: "center", padding: "20px" }}>
+    <p>🚀 Waking up backend server...</p>
+    <p style={{ fontSize: "14px", color: "#666" }}>
+      First load may take 10–20 seconds (Render free tier)
+    </p>
+  </div>
       ) : (
         <div className="issues-grid">
           {/* Change issues.map to sortedIssues.map right here 👇 */}
