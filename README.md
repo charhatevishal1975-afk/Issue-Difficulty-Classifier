@@ -1,8 +1,12 @@
 # Q2: Repository Issue Difficulty Classifier
 
-– scraper.py is in `backend/scripts`
+– scraper.py is in `/scripts`
 <br>
-– classifier.py is in `backend/scripts`
+– classifier.py is in `/scripts`
+
+To change the search repository, modify the `target_repo`variables in `scraper.py` in the bottom (main function).
+
+By default it is set to "scikit-learn/scikit-learn" but you can change it to any public repository on GitHub.
 
 This project provides an automated Workflow and interactive dashboard to fetch, classify, and visualize GitHub issues from any public repository. It is designed to help open-source contributors easily find issues matching their skill level.
 
