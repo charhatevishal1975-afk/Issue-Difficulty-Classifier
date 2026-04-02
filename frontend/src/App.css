@@ -51,6 +51,7 @@ header p {
 
 .search-bar {
   width: 100%;
+  background-color: white;
   max-width: 400px;
 }
 
