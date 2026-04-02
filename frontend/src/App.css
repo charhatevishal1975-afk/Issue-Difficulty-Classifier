@@ -62,7 +62,7 @@ header p {
 }
 
 .skill-input {
-  border-color: #8b5cf6;
+  /* border-color: #8b5cf6; */
   background-color: white;
   color: black;
   caret-color: black;
@@ -70,7 +70,8 @@ header p {
 }
 
 .skill-input:focus {
-  border-color: #8b5cf6;
+  /* border-color: #8b5cf6; */
+  background-color: white;
   color: black;
   caret-color: black;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
