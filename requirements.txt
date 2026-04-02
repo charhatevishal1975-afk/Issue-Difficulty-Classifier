@@ -6,6 +6,7 @@ cryptography==46.0.6
 Django==6.0.3
 django-cors-headers==4.9.0
 djangorestframework==3.17.1
+gunicorn==22.0.0
 idna==3.11
 pycparser==3.0
 PyGithub==2.9.0
