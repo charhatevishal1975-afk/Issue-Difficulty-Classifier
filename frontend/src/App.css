@@ -42,7 +42,7 @@ header p {
   border: 1px solid #cbd5e1;
   color: black;
   caret-color: black;
-  border-color: #8b5cf6;
+  border-color:white;
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
@@ -56,19 +56,19 @@ header p {
 
 .search-bar:focus, .difficulty-filter:focus {
   border-color: #3b82f6;
-  border-color: #8b5cf6;
+  border-color:white;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .skill-input {
-  border-color: #8b5cf6;
+  border-color:white;
   color: black;
   caret-color: black;
-  border-color: #8b5cf6;
+  border-color:white;
 }
 
 .skill-input:focus {
-  border-color: #8b5cf6;
+  border-color:white;
   color: black;
   caret-color: black;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
