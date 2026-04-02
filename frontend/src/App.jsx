@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     // Fetch Visualisation Stats
-    axios.get('https://issue-difficulty-classifier.onrender.com/stats/')
+    axios.get('https://issue-difficulty-classifier.onrender.com/api/stats/')
       .then(res => setStats(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -25,7 +25,7 @@ function App() {
     const fetchIssues = async () => {
       setLoading(true);
       try {
-        let url = 'https://issue-difficulty-classifier.onrender.com/issues/?';
+        let url = 'https://issue-difficulty-classifier.onrender.com/api/issues/?';
         if (search) url += `search=${search}&`;
         if (difficulty) url += `difficulty=${difficulty}`;
 
