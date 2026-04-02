@@ -112,7 +112,7 @@ useEffect(() => {
   } : null;
 
   // Filter out useless repo-specific words from the cloud
-  const ignoreWords = ['github', 'https', 'com', 'scikit', 'learn', 'sklearn', 'issue', 'issues'];
+  const ignoreWords = ['github', 'https', 'com', 'scikit', 'learn', 'sklearn', 'issue', 'issues', 'you', 'need', 'use', 'like', 'also', 'one', 'get', 'would', 'could', 'us', 'see', 'know'];
 
   return (
     <div className="dashboard-container">
@@ -139,9 +139,8 @@ useEffect(() => {
                   <div className="cloud-words">
                     {stats.word_clouds[diff]
                       .filter(word => !ignoreWords.includes(word.text))
-                      .slice(0, 5) // Keep it to the top 15 words to prevent clutter
+                      .slice(0, 5) 
                       .map((word, idx) => {
-                        // Logarithmic math: keeps highly frequent words from exploding the layout
                         const fontSize = Math.min(2.5, Math.max(0.8, Math.log(word.value + 1) * 0.7));
                         return (
                           <span 
@@ -202,7 +201,6 @@ useEffect(() => {
   </div>
       ) : (
         <div className="issues-grid">
-          {/* Change issues.map to sortedIssues.map right here 👇 */}
           {sortedIssues.map((issue) => {
             const recommended = isRecommended(issue);
             return (

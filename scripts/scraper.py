@@ -28,7 +28,7 @@ def fetch_repo_issues(repo_name, output_file='raw_issues.csv', max_issues=100):
                 break
                 
             # CRITICAL: The GitHub API treats Pull Requests as issues. 
-            # We must skip them to only analyze actual bugs/feature requests.
+            # We only want actual issues for our classifier, so we skip any issue that has a pull_request field.
             if issue.pull_request is not None:
                 continue
                 
@@ -61,6 +61,6 @@ def fetch_repo_issues(repo_name, output_file='raw_issues.csv', max_issues=100):
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    # We will test on scikit-learn as it has excellent issue tagging
+    # You can change the target_repo variable to fetch issues from a different repository.
     target_repo = "scikit-learn/scikit-learn" 
     fetch_repo_issues(target_repo, output_file='raw_issues.csv', max_issues=100)
